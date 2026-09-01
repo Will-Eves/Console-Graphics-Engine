@@ -15,7 +15,12 @@ To include the engine in your project:
 ## Quick Nav
 
 [Quick Start](#quick-start)
+
 [Using Buffers](#using-buffers)
+
+[Using a Camera](#using-a-camera)
+
+[Creating Meshes](#creating-meshes)
 
 ## Quick Start
 
@@ -76,3 +81,28 @@ CG::clear(
   depthBuffer,             // the buffer to be cleared
 );
 ```
+
+Finally, the render buffer is drawn to the screen like so:
+
+```cpp
+CG::render(
+  renderBuffer // the buffer to be drawn
+);
+```
+
+## Using a Camera
+
+The camera provides the actual rendering functionality. It bridges to gap between MeshRenderers and Buffers.
+
+A camera is created like so:
+
+```cpp
+CG::Camera camera = CG::Camera(
+  renderBuffer, // the buffer that will be drawn to
+  depthBuffer   // the depth buffer to check and write to
+);
+```
+
+A camera has both a `camera.position` and a `camera.rotation`. These are both `CG::Vector3` instances, and can be changed to move the camera around.
+
+## Creating Meshes
