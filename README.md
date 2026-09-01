@@ -22,6 +22,8 @@ To include the engine in your project:
 
 [Creating Meshes](#creating-meshes)
 
+[Using MeshRenderers](#using-meshrenderers)
+
 ## Quick Start
 
 The basic skeleton of a project using this engine looks like this:
@@ -41,6 +43,8 @@ int main(){
   while(true){
     // rendering code goes here
   }
+
+  CG::end();
 }
 ```
 
@@ -105,4 +109,63 @@ CG::Camera camera = CG::Camera(
 
 A camera has both a `camera.position` and a `camera.rotation`. These are both `CG::Vector3` instances, and can be changed to move the camera around.
 
+Rendering is done with a camera through the `camera.Render` function, like so:
+
+```cpp
+// render loop
+while(true){
+  ...
+  camera.Render(
+    meshRenderer // the MeshRenderer to be rendered
+  )
+  ...
+}
+```
+
 ## Creating Meshes
+
+**CG Engine** provides a few basic meshes, such as `BasicShapes::Cube` and `BasicShapes::Plane`.
+
+Making your own mesh is also relatively simple through code. A mesh is made up of `CG::Face` instances, which are basically just triangles with a color.
+
+Creating a face is done like so:
+
+```cpp
+CG::Face face = CG::Face(
+  CG::Vector3(-0.5, -0.5, 0), // vertex 1
+  CG::Vector3( 0.0,  0.5, 0), // vertex 2
+  CG::Vector3( 0.5, -0.5, 0), // vertex 3
+  CG::Color(255, 0, 0)        // face color
+);
+```
+
+Creating a mesh is easy as well. It is done like so:
+
+```cpp
+CG::Mesh mesh = CG::Mesh(
+  faceArray, // an array of CG::Face instances
+  faceCount  // the length of the faceArray
+)
+```
+
+## Using MeshRenderers
+
+MeshRenderers are the last piece of the rendering puzzle. Creating and using them is very simple.
+
+Create a mesh renderer like so:
+
+```cpp
+CG::MeshRenderer meshRenderer = CG::MeshRenderer(
+  mesh,         // the CG::Mesh used
+  renderBuffer, // the CG::RenderBuffer drawn to
+  depthBuffer,  // the CG::DepthBuffer checked and written to
+);
+```
+
+Drawing a mesh renderer is also done like so:
+
+```cpp
+camera.Render(
+  meshRenderer // MeshRenderer to be drawn
+);
+```
