@@ -1,6 +1,6 @@
-# 3D Terminal Renderer
+# CG Engine
 
-This project is a **3D Rendering Engine** for **C++**.
+**CG Engine** is a **3D Rendering Engine** build for **C++** projects.
 
 To include the engine in your project:
 
@@ -15,6 +15,7 @@ To include the engine in your project:
 ## Quick Nav
 
 [Quick Start](#quick-start)
+[Using Buffers](#using-buffers)
 
 ## Quick Start
 
@@ -36,4 +37,42 @@ int main(){
     // rendering code goes here
   }
 }
+```
+
+## Using Buffers
+
+Buffers are central to the engine. There are two types of buffers:
+
+1. Render Buffers
+2. Depth Buffers
+
+Render buffers are created like this:
+
+```cpp
+CG::RenderBuffer renderBuffer = CG::createBuffer(
+  200, // buffer width
+  200  // buffer height
+);
+```
+
+And depth buffers are created in a similar way:
+
+```cpp
+CG::DepthBuffer depthBuffer = CG::createDepthBuffer(
+  200, // buffer width
+  200  // buffer height
+);
+```
+
+Buffers are cleared using the `CG::clear()` function, like so:
+
+```cpp
+CG::clear(
+  renderBuffer,            // the buffer to be cleared
+  CG::Color(255, 255, 255) // the color to clear the buffer to
+);
+
+CG::clear(
+  depthBuffer,             // the buffer to be cleared
+);
 ```
